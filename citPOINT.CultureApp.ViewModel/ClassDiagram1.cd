@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="citPOINT.CultureApp.Data.Web.ConversationCulture">
+    <Position X="5" Y="1.75" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.CultureFiveDimension">
+    <Position X="2.75" Y="5.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.DomainCultureMapping">
+    <Position X="5" Y="5.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.NegotiationCulture">
+    <Position X="2.75" Y="1.75" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

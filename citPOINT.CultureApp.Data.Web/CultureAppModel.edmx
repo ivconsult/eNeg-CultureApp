@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CultureAppModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="CultureAppModelStoreContainer">
+          <EntitySet Name="ConversationCulture" EntityType="CultureAppModel.Store.ConversationCulture" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CultureFiveDimension" EntityType="CultureAppModel.Store.CultureFiveDimension" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DomainCultureMapping" EntityType="CultureAppModel.Store.DomainCultureMapping" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="NegotiationCulture" EntityType="CultureAppModel.Store.NegotiationCulture" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Conversat__Partn__0CBAE877" Association="CultureAppModel.Store.FK__Conversat__Partn__0CBAE877">
+            <End Role="CultureFiveDimension" EntitySet="CultureFiveDimension" />
+            <End Role="ConversationCulture" EntitySet="ConversationCulture" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DomainCul__Cultu__0DAF0CB0" Association="CultureAppModel.Store.FK__DomainCul__Cultu__0DAF0CB0">
+            <End Role="CultureFiveDimension" EntitySet="CultureFiveDimension" />
+            <End Role="DomainCultureMapping" EntitySet="DomainCultureMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Negotiati__Defau__0EA330E9" Association="CultureAppModel.Store.FK__Negotiati__Defau__0EA330E9">
+            <End Role="CultureFiveDimension" EntitySet="CultureFiveDimension" />
+            <End Role="NegotiationCulture" EntitySet="NegotiationCulture" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ConversationCulture">
+          <Key>
+            <PropertyRef Name="ConversationCultureID" />
+          </Key>
+          <Property Name="ConversationCultureID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ConversationID" Type="uniqueidentifier" />
+          <Property Name="PartnerCultureID" Type="int" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="DeletedBy" Type="uniqueidentifier" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CultureFiveDimension">
+          <Key>
+            <PropertyRef Name="CultureID" />
+          </Key>
+          <Property Name="CultureID" Type="int" Nullable="false" />
+          <Property Name="PDI" Type="int" />
+          <Property Name="IDV" Type="int" />
+          <Property Name="MAS" Type="int" />
+          <Property Name="UAI" Type="int" />
+          <Property Name="LTO" Type="int" />
+        </EntityType>
+        <EntityType Name="DomainCultureMapping">
+          <Key>
+            <PropertyRef Name="DomainCultureMappingID" />
+          </Key>
+          <Property Name="DomainCultureMappingID" Type="int" Nullable="false" />
+          <Property Name="DomainExt" Type="nvarchar" MaxLength="10" />
+          <Property Name="CultureID" Type="int" />
+        </EntityType>
+        <EntityType Name="NegotiationCulture">
+          <Key>
+            <PropertyRef Name="NegotiationCultureID" />
+          </Key>
+          <Property Name="NegotiationCultureID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NegotiationID" Type="uniqueidentifier" />
+          <Property Name="NegotiationCultureType" Type="tinyint" Nullable="false" />
+          <Property Name="DefaultCultureID" Type="int" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="DeletedBy" Type="uniqueidentifier" />
+          <Property Name="DeletedOn" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Conversat__Partn__0CBAE877">
+          <End Role="CultureFiveDimension" Type="CultureAppModel.Store.CultureFiveDimension" Multiplicity="0..1" />
+          <End Role="ConversationCulture" Type="CultureAppModel.Store.ConversationCulture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CultureFiveDimension">
+              <PropertyRef Name="CultureID" />
+            </Principal>
+            <Dependent Role="ConversationCulture">
+              <PropertyRef Name="PartnerCultureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DomainCul__Cultu__0DAF0CB0">
+          <End Role="CultureFiveDimension" Type="CultureAppModel.Store.CultureFiveDimension" Multiplicity="0..1" />
+          <End Role="DomainCultureMapping" Type="CultureAppModel.Store.DomainCultureMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CultureFiveDimension">
+              <PropertyRef Name="CultureID" />
+            </Principal>
+            <Dependent Role="DomainCultureMapping">
+              <PropertyRef Name="CultureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Negotiati__Defau__0EA330E9">
+          <End Role="CultureFiveDimension" Type="CultureAppModel.Store.CultureFiveDimension" Multiplicity="0..1" />
+          <End Role="NegotiationCulture" Type="CultureAppModel.Store.NegotiationCulture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CultureFiveDimension">
+              <PropertyRef Name="CultureID" />
+            </Principal>
+            <Dependent Role="NegotiationCulture">
+              <PropertyRef Name="DefaultCultureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="uspConversationCultureDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConversationCultureID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="uspConversationCultureInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConversationCultureID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ConversationID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="PartnerCultureID" Type="int" Mode="In" />
+          <Parameter Name="Deleted" Type="bit" Mode="In" />
+          <Parameter Name="DeletedBy" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="DeletedOn" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="uspConversationCultureSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConversationCultureID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="uspConversationCultureUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ConversationCultureID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ConversationID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="PartnerCultureID" Type="int" Mode="In" />
+          <Parameter Name="Deleted" Type="bit" Mode="In" />
+          <Parameter Name="DeletedBy" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="DeletedOn" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="uspCultureFiveDimensionSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CultureID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="uspNegotiationCultureDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NegotiationCultureID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="uspNegotiationCultureInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NegotiationCultureID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="NegotiationID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="NegotiationCultureType" Type="tinyint" Mode="In" />
+          <Parameter Name="DefaultCultureID" Type="int" Mode="In" />
+          <Parameter Name="Deleted" Type="bit" Mode="In" />
+          <Parameter Name="DeletedBy" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="DeletedOn" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="uspNegotiationCultureSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NegotiationCultureID" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="uspNegotiationCultureUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NegotiationCultureID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="NegotiationID" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="NegotiationCultureType" Type="tinyint" Mode="In" />
+          <Parameter Name="DefaultCultureID" Type="int" Mode="In" />
+          <Parameter Name="Deleted" Type="bit" Mode="In" />
+          <Parameter Name="DeletedBy" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="DeletedOn" Type="datetime" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CultureAppModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="CultureAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ConversationCultures" EntityType="CultureAppModel.ConversationCulture" />
+          <EntitySet Name="CultureFiveDimensions" EntityType="CultureAppModel.CultureFiveDimension" />
+          <EntitySet Name="DomainCultureMappings" EntityType="CultureAppModel.DomainCultureMapping" />
+          <EntitySet Name="NegotiationCultures" EntityType="CultureAppModel.NegotiationCulture" />
+          <AssociationSet Name="FK__Conversat__Partn__0CBAE877" Association="CultureAppModel.FK__Conversat__Partn__0CBAE877">
+            <End Role="CultureFiveDimension" EntitySet="CultureFiveDimensions" />
+            <End Role="ConversationCulture" EntitySet="ConversationCultures" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DomainCul__Cultu__0DAF0CB0" Association="CultureAppModel.FK__DomainCul__Cultu__0DAF0CB0">
+            <End Role="CultureFiveDimension" EntitySet="CultureFiveDimensions" />
+            <End Role="DomainCultureMapping" EntitySet="DomainCultureMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Negotiati__Defau__0EA330E9" Association="CultureAppModel.FK__Negotiati__Defau__0EA330E9">
+            <End Role="CultureFiveDimension" EntitySet="CultureFiveDimensions" />
+            <End Role="NegotiationCulture" EntitySet="NegotiationCultures" />
+          </AssociationSet>
+          <FunctionImport Name="GetNegotiationCultureByNegID" EntitySet="NegotiationCultures" ReturnType="Collection(CultureAppModel.NegotiationCulture)">
+          <Parameter Name="NegotiationCultureID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetConversationCultureByConvID" EntitySet="ConversationCultures" ReturnType="Collection(CultureAppModel.ConversationCulture)">
+          <Parameter Name="ConversationCultureID" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="GetFiveDimensionByCultureID" EntitySet="CultureFiveDimensions" ReturnType="Collection(CultureAppModel.CultureFiveDimension)">
+            <Parameter Name="CultureID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="ConversationCulture">
+          <Key>
+            <PropertyRef Name="ConversationCultureID" />
+          </Key>
+          <Property Name="ConversationCultureID" Type="Guid" Nullable="false" />
+          <Property Name="ConversationID" Type="Guid" />
+          <Property Name="PartnerCultureID" Type="Int32" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="DeletedBy" Type="Guid" />
+          <Property Name="DeletedOn" Type="DateTime" />
+          <NavigationProperty Name="CultureFiveDimension" Relationship="CultureAppModel.FK__Conversat__Partn__0CBAE877" FromRole="ConversationCulture" ToRole="CultureFiveDimension" />
+        </EntityType>
+        <EntityType Name="CultureFiveDimension">
+          <Key>
+            <PropertyRef Name="CultureID" />
+          </Key>
+          <Property Name="CultureID" Type="Int32" Nullable="false" />
+          <Property Name="PDI" Type="Int32" />
+          <Property Name="IDV" Type="Int32" />
+          <Property Name="MAS" Type="Int32" />
+          <Property Name="UAI" Type="Int32" />
+          <Property Name="LTO" Type="Int32" />
+          <NavigationProperty Name="ConversationCultures" Relationship="CultureAppModel.FK__Conversat__Partn__0CBAE877" FromRole="CultureFiveDimension" ToRole="ConversationCulture" />
+          <NavigationProperty Name="DomainCultureMappings" Relationship="CultureAppModel.FK__DomainCul__Cultu__0DAF0CB0" FromRole="CultureFiveDimension" ToRole="DomainCultureMapping" />
+          <NavigationProperty Name="NegotiationCultures" Relationship="CultureAppModel.FK__Negotiati__Defau__0EA330E9" FromRole="CultureFiveDimension" ToRole="NegotiationCulture" />
+        </EntityType>
+        <EntityType Name="DomainCultureMapping">
+          <Key>
+            <PropertyRef Name="DomainCultureMappingID" />
+          </Key>
+          <Property Name="DomainCultureMappingID" Type="Int32" Nullable="false" />
+          <Property Name="DomainExt" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="CultureID" Type="Int32" />
+          <NavigationProperty Name="CultureFiveDimension" Relationship="CultureAppModel.FK__DomainCul__Cultu__0DAF0CB0" FromRole="DomainCultureMapping" ToRole="CultureFiveDimension" />
+        </EntityType>
+        <EntityType Name="NegotiationCulture">
+          <Key>
+            <PropertyRef Name="NegotiationCultureID" />
+          </Key>
+          <Property Name="NegotiationCultureID" Type="Guid" Nullable="false" />
+          <Property Name="NegotiationID" Type="Guid" />
+          <Property Name="NegotiationCultureType" Type="Byte" Nullable="false" />
+          <Property Name="DefaultCultureID" Type="Int32" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="DeletedBy" Type="Guid" />
+          <Property Name="DeletedOn" Type="DateTime" />
+          <NavigationProperty Name="CultureFiveDimension" Relationship="CultureAppModel.FK__Negotiati__Defau__0EA330E9" FromRole="NegotiationCulture" ToRole="CultureFiveDimension" />
+        </EntityType>
+        <Association Name="FK__Conversat__Partn__0CBAE877">
+          <End Role="CultureFiveDimension" Type="CultureAppModel.CultureFiveDimension" Multiplicity="0..1" />
+          <End Role="ConversationCulture" Type="CultureAppModel.ConversationCulture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CultureFiveDimension">
+              <PropertyRef Name="CultureID" />
+            </Principal>
+            <Dependent Role="ConversationCulture">
+              <PropertyRef Name="PartnerCultureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DomainCul__Cultu__0DAF0CB0">
+          <End Role="CultureFiveDimension" Type="CultureAppModel.CultureFiveDimension" Multiplicity="0..1" />
+          <End Role="DomainCultureMapping" Type="CultureAppModel.DomainCultureMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CultureFiveDimension">
+              <PropertyRef Name="CultureID" />
+            </Principal>
+            <Dependent Role="DomainCultureMapping">
+              <PropertyRef Name="CultureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Negotiati__Defau__0EA330E9">
+          <End Role="CultureFiveDimension" Type="CultureAppModel.CultureFiveDimension" Multiplicity="0..1" />
+          <End Role="NegotiationCulture" Type="CultureAppModel.NegotiationCulture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CultureFiveDimension">
+              <PropertyRef Name="CultureID" />
+            </Principal>
+            <Dependent Role="NegotiationCulture">
+              <PropertyRef Name="DefaultCultureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CultureAppModelStoreContainer" CdmEntityContainer="CultureAppEntities">
+          <EntitySetMapping Name="ConversationCultures"><EntityTypeMapping TypeName="CultureAppModel.ConversationCulture"><MappingFragment StoreEntitySet="ConversationCulture">
+            <ScalarProperty Name="ConversationCultureID" ColumnName="ConversationCultureID" />
+            <ScalarProperty Name="ConversationID" ColumnName="ConversationID" />
+            <ScalarProperty Name="PartnerCultureID" ColumnName="PartnerCultureID" />
+            <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+            <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+            <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+          </MappingFragment></EntityTypeMapping>
+            <EntityTypeMapping TypeName="CultureAppModel.ConversationCulture">
+              <ModificationFunctionMapping>
+                <DeleteFunction FunctionName="CultureAppModel.Store.uspConversationCultureDelete">
+                  <ScalarProperty Name="ConversationCultureID" ParameterName="ConversationCultureID" />
+                </DeleteFunction>
+                <UpdateFunction FunctionName="CultureAppModel.Store.uspConversationCultureUpdate">
+                  <ScalarProperty Name="DeletedOn" ParameterName="DeletedOn" Version="Current" />
+                  <ScalarProperty Name="DeletedBy" ParameterName="DeletedBy" Version="Current" />
+                  <ScalarProperty Name="Deleted" ParameterName="Deleted" Version="Current" />
+                  <ScalarProperty Name="PartnerCultureID" ParameterName="PartnerCultureID" Version="Current" />
+                  <ScalarProperty Name="ConversationID" ParameterName="ConversationID" Version="Current" />
+                  <ScalarProperty Name="ConversationCultureID" ParameterName="ConversationCultureID" Version="Current" />
+                </UpdateFunction>
+                <InsertFunction FunctionName="CultureAppModel.Store.uspConversationCultureInsert">
+                  <ScalarProperty Name="DeletedOn" ParameterName="DeletedOn" />
+                  <ScalarProperty Name="DeletedBy" ParameterName="DeletedBy" />
+                  <ScalarProperty Name="Deleted" ParameterName="Deleted" />
+                  <ScalarProperty Name="PartnerCultureID" ParameterName="PartnerCultureID" />
+                  <ScalarProperty Name="ConversationID" ParameterName="ConversationID" />
+                  <ScalarProperty Name="ConversationCultureID" ParameterName="ConversationCultureID" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="CultureFiveDimensions"><EntityTypeMapping TypeName="CultureAppModel.CultureFiveDimension"><MappingFragment StoreEntitySet="CultureFiveDimension">
+            <ScalarProperty Name="CultureID" ColumnName="CultureID" />
+            <ScalarProperty Name="PDI" ColumnName="PDI" />
+            <ScalarProperty Name="IDV" ColumnName="IDV" />
+            <ScalarProperty Name="MAS" ColumnName="MAS" />
+            <ScalarProperty Name="UAI" ColumnName="UAI" />
+            <ScalarProperty Name="LTO" ColumnName="LTO" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DomainCultureMappings"><EntityTypeMapping TypeName="CultureAppModel.DomainCultureMapping"><MappingFragment StoreEntitySet="DomainCultureMapping">
+            <ScalarProperty Name="DomainCultureMappingID" ColumnName="DomainCultureMappingID" />
+            <ScalarProperty Name="DomainExt" ColumnName="DomainExt" />
+            <ScalarProperty Name="CultureID" ColumnName="CultureID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="NegotiationCultures"><EntityTypeMapping TypeName="CultureAppModel.NegotiationCulture"><MappingFragment StoreEntitySet="NegotiationCulture">
+            <ScalarProperty Name="NegotiationCultureID" ColumnName="NegotiationCultureID" />
+            <ScalarProperty Name="NegotiationID" ColumnName="NegotiationID" />
+            <ScalarProperty Name="NegotiationCultureType" ColumnName="NegotiationCultureType" />
+            <ScalarProperty Name="DefaultCultureID" ColumnName="DefaultCultureID" />
+            <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+            <ScalarProperty Name="DeletedBy" ColumnName="DeletedBy" />
+            <ScalarProperty Name="DeletedOn" ColumnName="DeletedOn" />
+          </MappingFragment></EntityTypeMapping>
+            <EntityTypeMapping TypeName="CultureAppModel.NegotiationCulture">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="CultureAppModel.Store.uspNegotiationCultureInsert">
+                  <ScalarProperty Name="DeletedOn" ParameterName="DeletedOn" />
+                  <ScalarProperty Name="DeletedBy" ParameterName="DeletedBy" />
+                  <ScalarProperty Name="Deleted" ParameterName="Deleted" />
+                  <ScalarProperty Name="DefaultCultureID" ParameterName="DefaultCultureID" />
+                  <ScalarProperty Name="NegotiationCultureType" ParameterName="NegotiationCultureType" />
+                  <ScalarProperty Name="NegotiationID" ParameterName="NegotiationID" />
+                  <ScalarProperty Name="NegotiationCultureID" ParameterName="NegotiationCultureID" />
+                </InsertFunction>
+                <DeleteFunction FunctionName="CultureAppModel.Store.uspNegotiationCultureDelete">
+                  <ScalarProperty Name="NegotiationCultureID" ParameterName="NegotiationCultureID" />
+                </DeleteFunction>
+                <UpdateFunction FunctionName="CultureAppModel.Store.uspNegotiationCultureUpdate">
+                  <ScalarProperty Name="DeletedOn" ParameterName="DeletedOn" Version="Current" />
+                  <ScalarProperty Name="DeletedBy" ParameterName="DeletedBy" Version="Current" />
+                  <ScalarProperty Name="Deleted" ParameterName="Deleted" Version="Current" />
+                  <ScalarProperty Name="DefaultCultureID" ParameterName="DefaultCultureID" Version="Current" />
+                  <ScalarProperty Name="NegotiationCultureType" ParameterName="NegotiationCultureType" Version="Current" />
+                  <ScalarProperty Name="NegotiationID" ParameterName="NegotiationID" Version="Current" />
+                  <ScalarProperty Name="NegotiationCultureID" ParameterName="NegotiationCultureID" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping></EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetNegotiationCultureByNegID" FunctionName="CultureAppModel.Store.uspNegotiationCultureSelect" />
+          <FunctionImportMapping FunctionImportName="GetConversationCultureByConvID" FunctionName="CultureAppModel.Store.uspConversationCultureSelect" />
+          <FunctionImportMapping FunctionImportName="GetFiveDimensionByCultureID" FunctionName="CultureAppModel.Store.uspCultureFiveDimensionSelect" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="CultureAppModel">
+        <EntityTypeShape EntityType="CultureAppModel.ConversationCulture" Width="2" PointX="3" PointY="1.25" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="CultureAppModel.CultureFiveDimension" Width="2" PointX="3" PointY="4.5" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="CultureAppModel.DomainCultureMapping" Width="2" PointX="5.75" PointY="4.875" Height="1.7879850260416657" IsExpanded="true" />
+        <EntityTypeShape EntityType="CultureAppModel.NegotiationCulture" Width="1.875" PointX="5.75" PointY="1.25" Height="2.5571907552083317" IsExpanded="true" />
+        <AssociationConnector Association="CultureAppModel.FK__Conversat__Partn__0CBAE877" ManuallyRouted="false">
+          <ConnectorPoint PointX="4" PointY="4.5" />
+          <ConnectorPoint PointX="4" PointY="3.6148893229166674" />
+        </AssociationConnector>
+        <AssociationConnector Association="CultureAppModel.FK__DomainCul__Cultu__0DAF0CB0" ManuallyRouted="false">
+          <ConnectorPoint PointX="5" PointY="5.7689925130208328" />
+          <ConnectorPoint PointX="5.75" PointY="5.7689925130208328" />
+        </AssociationConnector>
+        <AssociationConnector Association="CultureAppModel.FK__Negotiati__Defau__0EA330E9" ManuallyRouted="false">
+          <ConnectorPoint PointX="5" PointY="4.5" />
+          <ConnectorPoint PointX="5.375" PointY="4.125" />
+          <ConnectorPoint PointX="5.375" PointY="2.5285953776041659" />
+          <ConnectorPoint PointX="5.75" PointY="2.5285953776041659" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="citPOINT.CultureApp.Data.Web.ConversationCulture" Collapsed="true">
+    <Position X="1.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.Culture" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.CultureAppContext" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.CultureFiveDimension">
+    <Position X="1.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.DomainCultureMapping">
+    <Position X="6.75" Y="4.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.LoginContext" Collapsed="true">
+    <Position X="4.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.LoginUser" Collapsed="true">
+    <Position X="1.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.NegotiationCulture">
+    <Position X="3.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="citPOINT.CultureApp.Data.Web.SessionContext" Collapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

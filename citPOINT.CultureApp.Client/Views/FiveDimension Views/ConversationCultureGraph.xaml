@@ -1,0 +1,220 @@
+﻿<UserControl x:Class="citPOINT.CultureApp.Client.ConversationCultureGraph"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:telerikChart="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Charting"
+             xmlns:telerikCharting="clr-namespace:Telerik.Windows.Controls.Charting;assembly=Telerik.Windows.Controls.Charting"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.SL4"
+             mc:Ignorable="d"
+             d:DesignHeight="400"
+             d:DesignWidth="500"
+MaxWidth="600"
+                               MaxHeight="400"            
+             xmlns:eNegCommon="clr-namespace:citPOINT.eNeg.Common;assembly=citPOINT.eNeg.Common">
+
+    <UserControl.Resources>
+        <eNegCommon:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot"
+          Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="446*" />
+            <ColumnDefinition Width="54" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <telerik:RadComboBox Grid.Row="0"
+                                 Grid.Column="0"
+                                 DisplayMemberPath="CultureName"
+                                 EmptyText="Select Your Culture . . ."
+                                 Height="25"
+                                 HorizontalAlignment="Left"
+                                 IsEditable="True"
+                                 ItemsSource="{Binding Path=CultureEntries}"
+                                 Margin="5,0"
+                                 Name="uxcboUserCulture"
+                                 SelectedIndex="-1"
+                                 SelectedItem="{Binding CurrentUserCulture, 
+                                                    Mode=TwoWay,
+                                                    ValidatesOnDataErrors=True,
+                                                    ValidatesOnNotifyDataErrors=True,
+                                                    ValidatesOnExceptions=True,
+                                                    NotifyOnValidationError=True}"
+                                 SelectedValuePath="CultureID"
+                                 telerik:TextSearch.TextPath="CultureName"
+                                 Width="170"
+                                 Visibility="{Binding IsUserCultureNotDefined,Converter={StaticResource booleanToVisibilityConverter}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <cmd:EventToCommand PassEventArgsToCommand="True"
+                                            Command="{Binding CultureSelectionChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </telerik:RadComboBox>
+
+            <telerik:RadComboBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 DisplayMemberPath="CultureName"
+                                 EmptyText="Select Partner Culture . . ."
+                                 Height="25"
+                                 HorizontalAlignment="Left"
+                                 IsEditable="True"
+                                 ItemsSource="{Binding Path=CultureEntries}"
+                                 Margin="10"
+                                 Name="uxcboPartnerCulture"
+                                 SelectedIndex="-1"
+                                 
+                                 SelectedValue="{Binding CurrentConversationCulture.PartnerCultureID, 
+                                                    Mode=TwoWay,
+                                                    ValidatesOnDataErrors=True,
+                                                    ValidatesOnNotifyDataErrors=True,
+                                                    ValidatesOnExceptions=True,
+                                                    NotifyOnValidationError=True}"
+                                 SelectedValuePath="CultureID"
+                                 telerik:TextSearch.TextPath="CultureName"
+                                 Width="170">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <cmd:EventToCommand PassEventArgsToCommand="True"
+                                            Command="{Binding CultureSelectionChangedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </telerik:RadComboBox>
+
+            <telerik:RadButton Content="Change"
+                    Height="25"
+                    Name="uxcmdSave"
+                    VerticalAlignment="Center"
+                    Width="75"
+                    Command="{Binding SubmitChangeCommand}" />
+        </StackPanel>
+
+        <HyperlinkButton Grid.Column="1"
+                         Name="uxcmdNavigateToHelp"
+                         Command="{Binding NavigateToHelpCommand}"
+                         Margin="0,0,0,5"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/citPOINT.CultureApp.Client;component/Images/help.png"
+                       Stretch="UniformToFill"
+                       Height="16"
+                       Width="16"
+                       ToolTipService.ToolTip="See Help about Chart items." />
+                <TextBlock Text="Help"
+                           Margin="2,0" />
+            </StackPanel>
+        </HyperlinkButton>
+
+        <telerikChart:RadChart x:Name="ux5DimGraph"
+                               BorderBrush="Black"
+                               BorderThickness="1"
+                               Grid.Row="1"
+                               Margin="5,0"
+                               Grid.ColumnSpan="2"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               ItemsSource="{Binding FiveDimensionValuesDataSeries}">
+            <telerik:RadChart.SeriesMappings>
+                <telerik:SeriesMapping LegendLabel="Arab World">
+                    <telerik:SeriesMapping.SeriesDefinition>
+                        <telerik:BarSeriesDefinition AxisName="Secondary"
+                                                     ShowItemToolTips="True" />
+                    </telerik:SeriesMapping.SeriesDefinition>
+                    <telerik:ItemMapping DataPointMember="YValue"
+                                         FieldName="UserCultureDimensionValue" />
+                    <telerik:ItemMapping DataPointMember="XCategory"
+                                         FieldName="DimensionName" />
+                    <telerik:ItemMapping DataPointMember="Tooltip"
+                                         FieldName="Description" />
+                </telerik:SeriesMapping>
+                <telerik:SeriesMapping LegendLabel="Austia">
+                    <telerik:SeriesMapping.SeriesDefinition>
+                        <telerik:BarSeriesDefinition AxisName="Secondary"
+                                                     ShowItemToolTips="True" />
+                    </telerik:SeriesMapping.SeriesDefinition>
+                    <telerik:ItemMapping DataPointMember="YValue"
+                                         FieldName="PartnerCultureDimensionValue" />
+                    <telerik:ItemMapping DataPointMember="XCategory"
+                                         FieldName="DimensionName" />
+                    <telerik:ItemMapping DataPointMember="Tooltip"
+                                         FieldName="Description" />
+                </telerik:SeriesMapping>
+            </telerik:RadChart.SeriesMappings>
+            <telerikChart:RadChart.PaletteBrushes>
+                <SolidColorBrush Color="#FF0076FF" />
+                <SolidColorBrush Color="Orange" />
+            </telerikChart:RadChart.PaletteBrushes>
+            <telerikChart:RadChart.DefaultView>
+                <telerikCharting:ChartDefaultView ChartLegendPosition="Bottom">
+                    <telerikCharting:ChartDefaultView.ChartTitle>
+                        <telerikCharting:ChartTitle HorizontalAlignment="Center"
+                                                    Visibility="Collapsed"
+                                                    Height="0" />
+                    </telerikCharting:ChartDefaultView.ChartTitle>
+
+                    <telerik:ChartDefaultView.ChartArea>
+                        <telerik:ChartArea LegendName="legend"
+                                           DimensionMode="Strict2D"
+                                           Padding="10,10,10,5">
+                            <telerik:ChartArea.AxisY>
+                                <telerik:AxisY Title="Scores"
+                                               AxisName="Secondary"
+                                               AutoRange="True"
+                                               ExtendDirection="Smart" />
+                            </telerik:ChartArea.AxisY>
+                        </telerik:ChartArea>
+                    </telerik:ChartDefaultView.ChartArea>
+
+                    <telerikCharting:ChartDefaultView.ChartLegend>
+                        <telerikCharting:ChartLegend x:Name="legend"
+                                                     Visibility="Collapsed"
+                                                     Height="0" />
+                    </telerikCharting:ChartDefaultView.ChartLegend>
+
+                </telerikCharting:ChartDefaultView>
+            </telerikChart:RadChart.DefaultView>
+        </telerikChart:RadChart>
+
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Grid.ColumnSpan="2">
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal">
+                <Rectangle Fill="#FF0076FF"
+                           Height="15"
+                           Width="15"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding CurrentUserCulture.CultureName}"
+                           Height="20"
+                           Margin="5"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal">
+                <Rectangle Fill="Orange"
+                           Height="15"
+                           Width="15"
+                           HorizontalAlignment="Center" />
+                <TextBlock Text="{Binding CurrentPartnerCulture.CultureName}"
+                           Height="20"
+                           Margin="5"
+                           HorizontalAlignment="Center" />
+
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

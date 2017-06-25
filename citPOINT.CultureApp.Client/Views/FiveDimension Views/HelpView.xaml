@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="citPOINT.CultureApp.Client.HelpView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <Style TargetType="Border" x:Key="BorderStyle"  >
+            <Setter Property="BorderBrush"
+                    Value="Black" />
+
+            <Setter Property="BorderThickness"
+                    Value="0.5" />
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+    </UserControl.Resources>
+    
+    <Grid x:Name="LayoutRoot"
+          Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <HyperlinkButton Content="Back"
+                         Margin="5,1,0,0"
+                         VerticalAlignment="Center"
+                         Grid.Row="0"
+                         HorizontalAlignment="Left"
+                         Command="{Binding BackToGraphCommand}" />
+
+        <ScrollViewer Margin="5"
+                      Grid.Row="1">
+            <StackPanel Margin="5"
+                        Grid.Row="1">
+
+
+                <!-- PDI -->
+                <TextBlock TextWrapping="Wrap">
+                <Run FontWeight="Bold"
+                     Foreground="DarkOrange">
+                    Power Distance Index (PDI):-
+               </Run>
+               
+                <Run>That is the extent to which the less powerful members of organizations and institutions (like the family) accept and expect that power is distributed unequally. This represents inequality (more versus less), but defined from below, not from above. It suggests that a society's level of inequality is endorsed by the followers as much as by the leaders. Power and inequality, of course, are extremely fundamental facts of any society and anybody with some international experience will be aware that 'all societies are unequal, but some are more unequal than others'.</Run>
+                </TextBlock>
+
+                <Border Style="{StaticResource BorderStyle}" />
+                
+                    <!-- IDV -->
+                <TextBlock TextWrapping="Wrap">
+                <Run FontWeight="Bold"
+                     Foreground="DarkOrange">
+                    Individualism (IDV):-
+               </Run>
+               
+                <Run> On the one side versus its opposite, collectivism, that is the degree to which individuals are inte-grated into groups. On the individualist side we find societies in which the ties between individuals are loose: everyone is expected to look after him/herself and his/her immediate family. On the collectivist side, we find societies in which people from birth onwards are integrated into strong, cohesive in-groups, often extended families (with uncles, aunts and grandparents) which continue protecting them in exchange for unquestioning loyalty. The word 'collectivism' in this sense has no political meaning: it refers to the group, not to the state. Again, the issue addressed by this dimension is an extremely fundamental one, regarding all societies in the world.</Run>
+                </TextBlock>
+
+                <Border Style="{StaticResource BorderStyle}" />
+                
+                <!-- MAS -->
+                <TextBlock TextWrapping="Wrap">
+                    
+                <Run FontWeight="Bold"
+                     Foreground="DarkOrange">
+                    Masculinity (MAS):-
+               </Run>
+               
+                <Run> Versus its opposite, femininity, refers to the distribution of roles between the genders which is another fundamental issue for any society to which a range of solutions are found. The IBM studies revealed that (a) women's values differ less among societies than men's values; (b) men's values from one country to another contain a dimension from very assertive and competitive and maximally different from women's values on the one side, to modest and caring and similar to women's values on the other. The assertive pole has been called 'masculine' and the modest, caring pole 'feminine'. The women in feminine countries have the same modest, caring values as the men; in the masculine countries they are somewhat assertive and competitive, but not as much as the men, so that these countries show a gap between men's values and women's values.</Run>
+                </TextBlock>
+
+                <Border Style="{StaticResource BorderStyle}" />
+                
+                <!-- UAI -->
+                <TextBlock TextWrapping="Wrap">
+                    
+                <Run FontWeight="Bold"
+                     Foreground="DarkOrange">
+                    Uncertainty Avoidance Index (UAI):-
+               </Run>
+               
+                <Run> Deals with a society's tolerance for uncertainty and ambiguity; it ultimately refers to man's search for Truth. It indicates to what extent a culture programs its members to feel either uncomfortable or comfortable in unstructured situations. Unstructured situations are novel, unknown, surprising, different from usual. Uncertainty avoiding cultures try to minimize the possibility of such situations by strict laws and rules, safety and security measures, and on the philosophical and religious level by a belief in absolute Truth; 'there can only be one Truth and we have it'. People in uncertainty avoiding countries are also more emotional, and motivated by inner nervous energy. The opposite type, uncertainty accepting cultures, are more tolerant of opinions different from what they are used to; they try to have as few rules as possible, and on the philosophical and religious level they are relativist and allow many currents to flow side by side. People within these cultures are more phlegmatic and contemplative, and not expected by their environment to express emotions.</Run>
+                </TextBlock>
+
+                <Border Style="{StaticResource BorderStyle}" />
+                
+                <!-- LTO -->
+                <TextBlock TextWrapping="Wrap">
+                    
+                <Run FontWeight="Bold"
+                     Foreground="DarkOrange">
+                    Long-Term Orientation (LTO):-
+               </Run>
+               
+                <Run> Versus short-term orientation: this fifth dimension was found in a study among students in 23 countries around the world, using a questionnaire designed by Chinese scholars It can be said to deal with Virtue regardless of Truth. Values associated with Long Term Orientation are thrift and perseverance; values associated with Short Term Orientation are respect for tradition, fulfilling social obligations, and protecting one's 'face'. Both the positively and the negatively rated values of this dimension are found in the teachings of Confucius, the most influential Chinese philosopher who lived around 500 B.C.; however, the dimension also applies to countries without a Confucian heritage.</Run>
+                </TextBlock>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
+
+    
