@@ -1,5 +1,7 @@
 # eNeg CultureApp
 
+## Description
+
 CultureApp is a silverlight web based platform with desktop add-on extension, MVVM framework applied with n-tier layers.
 
 * RIA Services
@@ -7,6 +9,8 @@ CultureApp is a silverlight web based platform with desktop add-on extension, MV
 * Logging
 * Excption Handling
 * MEF
+
+For more details please find the [Software Requirements Specification](https://github.com/ivconsult/eNeg/blob/master/eNeg%20Documentation/SRS_eNeg_Negotiation_Framework.docx), the [Technical Design Specification](https://github.com/ivconsult/eNeg/blob/master/eNeg%20Documentation/eNeg_TDS_KR.docx), the [Architecture](https://github.com/ivconsult/eNeg/blob/master/eNeg%20Documentation/eNEG%20Infrastructure%20logical%20Architecture.docx) and some videos explaining the uses cases of eNeg in [eNeg Documentation](https://github.com/ivconsult/eNeg/tree/master/eNeg%20Documentation).
 
 ## Features
 
