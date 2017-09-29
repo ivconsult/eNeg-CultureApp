@@ -2,6 +2,8 @@
 
 ## Description
 
+CultureApp supports the user in understanding his counterpart. The user is advised concerning characteristics of his counterpart based on cultural and demographic studies. The characteristics are defined in the dimensions Power distance, Individualism vs. Collectivism, Masculinity vs. Feminity, Uncertainty avoidance, Long-term vs. Short-term orientation und Indulgence vs. Restraint.
+
 CultureApp is a silverlight web based platform with desktop add-on extension, MVVM framework applied with n-tier layers.
 
 * RIA Services
