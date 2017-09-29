@@ -10,9 +10,7 @@ CultureApp is a silverlight web based platform with desktop add-on extension, MV
 
 ## Features
 
-* Allow to include cultural requirements or behaviours of counterparts in negotiation strategy. Automatic support in specific situations that occur in negotiations between 
-
-people 
+* Allow to include cultural requirements or behaviours of counterparts in negotiation strategy. Automatic support in specific situations that occur in negotiations between people 
 * Based on the studies and research results of [Geert Hofstede](https://geert-hofstede.com/)
 * Implemented to advice you for culture specifc circumstances with other nations
 * Enable you to perform well with international negotiations
